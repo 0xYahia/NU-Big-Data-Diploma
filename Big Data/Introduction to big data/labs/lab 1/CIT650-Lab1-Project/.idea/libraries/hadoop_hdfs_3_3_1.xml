@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="hadoop-hdfs-3.3.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../../Utils/Containers/Hadoop/pseudo-dist/hadoop-3.3.1/share/hadoop/hdfs/hadoop-hdfs-3.3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
