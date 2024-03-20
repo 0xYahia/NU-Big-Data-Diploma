@@ -62,7 +62,7 @@ Monolithic vs Microservices
 - Normalization
 - Still blurring
 
-# Installation of Hadoop
+# Installation of Hadoop Part 1
 
 1- Installation modes
 
@@ -91,3 +91,5 @@ Monolithic vs Microservices
 
 4- Start the cluster
 5- Access Namenode and YARN from web UI
+
+# Installation of Hadoop Part 2
