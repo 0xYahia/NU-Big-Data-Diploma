@@ -54,3 +54,7 @@ Monolithic vs Microservices
 5- Access Namenode and YARN from web UI
 
 # Installation of Hadoop Part 2
+- sudo addgroup hadoop => create a group
+- sudo adduser --ingroup hadoop hduser => create a user and add this user to the group
+- sudo visudo => add hduser to sudoers
+- su - hduser => switch to hduser
