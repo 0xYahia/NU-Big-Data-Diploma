@@ -8,7 +8,8 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.io.IOException;
 
-public class WordCount  {
+public class WordCount {
+
     public static class MapperClass extends Mapper<LongWritable, Text, Text, IntWritable> {
 
         private final Text city = new Text();
@@ -32,9 +33,9 @@ public class WordCount  {
         }
     }
 
-    public static class ReducerClass extends Reducer<Text, IntWritable, Text, DoubleWritable> {
+    public static class ReducerClass extends Reducer<Text, IntWritable, Text, Text> {
 
-        private final DoubleWritable avgTemperature = new DoubleWritable();
+        private final Text avgTemperatureText = new Text();
 
         @Override
         protected void reduce(Text key, Iterable<IntWritable> values, Context context)
@@ -50,8 +51,9 @@ public class WordCount  {
 
             if (count > 0) {
                 double avg = (double) sum / count;
-                avgTemperature.set(avg);
-                context.write(key, avgTemperature);
+                String avgWithSymbol = String.format("%.1f℃", avg); // Format average temperature with degree symbol
+                avgTemperatureText.set(avgWithSymbol);
+                context.write(key, avgTemperatureText);
             }
         }
     }
@@ -65,7 +67,7 @@ public class WordCount  {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "City Temperature Average");
 
-        job.setJarByClass(CityTemperatureAverage.class);
+        job.setJarByClass(WordCount.class);
         job.setMapperClass(MapperClass.class);
         job.setReducerClass(ReducerClass.class);
 
@@ -73,7 +75,7 @@ public class WordCount  {
         job.setMapOutputValueClass(IntWritable.class);
 
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(DoubleWritable.class);
+        job.setOutputValueClass(Text.class); // Update output value class to Text
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
