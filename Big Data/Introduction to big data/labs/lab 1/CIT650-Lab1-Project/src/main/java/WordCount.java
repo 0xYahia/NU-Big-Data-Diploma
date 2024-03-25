@@ -1,6 +1,8 @@
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapred.JobClient;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -51,7 +53,7 @@ public class WordCount {
 
             if (count > 0) {
                 double avg = (double) sum / count;
-                String avgWithSymbol = String.format("%.1f℃", avg); // Format average temperature with degree symbol
+                String avgWithSymbol = String.format("%.1f℃", avg);
                 avgTemperatureText.set(avgWithSymbol);
                 context.write(key, avgTemperatureText);
             }
@@ -75,11 +77,21 @@ public class WordCount {
         job.setMapOutputValueClass(IntWritable.class);
 
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(Text.class); // Update output value class to Text
+        job.setOutputValueClass(Text.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
+
+//        Path outputPath = new Path(args[1]);
+//        FileSystem fs = FileSystem.get(conf);
+//        if (fs.exists(outputPath)) fs.delete(outputPath, true);
+//        FileOutputFormat.setOutputPath(job, outputPath);
+//
+//        System.exit(job.waitForCompletion(true) ? 0 : 1);
+//        jobClient.runJob(job);
+
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        System.exit(job.waitForCompletion(true) ? 0 : 1);
+
+
     }
 }
