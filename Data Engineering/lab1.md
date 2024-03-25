@@ -49,3 +49,8 @@ hdfs dfs -get lab1-v3/out/part-r-00000 /home
 #### Step 6: Copy the output file from the container to the local machine
 - leave the container and run the following command
 - docker cp <container_id>:<path> <local path>
+
+**Example:**
+```bash
+docker cp hadoop:/home/part-r-00000 .
+```
