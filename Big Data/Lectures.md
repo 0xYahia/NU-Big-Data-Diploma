@@ -36,6 +36,3 @@ DAS -> Direct Attached Storage
 - Distributed Processing DB -> Hadoop, Spark, Flink, Storm, etc.
 - Analytical DB -> OLAP, Data Warehousing, etc.
 - In-Memory Processing DB -> Redis, Memcached, etc.
-
-
-# Lecture 2: Hadoop
