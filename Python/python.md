@@ -10,3 +10,5 @@ Python is a MUST for students and working professionals to become a great Softwa
 ## What is Anaconda?
 
 Anaconda is a free and open-source distribution of the Python and R programming languages for scientific computing (data science, machine learning applications, large-scale data processing, predictive analytics, etc.), that aims to simplify package management and deployment. Package versions are managed by the package management system conda.
+
+1:56 => notebook jupeyter
