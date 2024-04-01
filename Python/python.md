@@ -22,7 +22,8 @@ The Jupyter Notebook is an open-source web application that allows you to create
 ```python
 14 // 7 # floor division operator -> 2
 -13 / 4 # -3.25
--13 // 4 # -4 -> this because -4 is the less than -3.25 and it takes the less value of the result from the division
+-13 // 4 # -4 ->
 ```
 
 ```python
+38
