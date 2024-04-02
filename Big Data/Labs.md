@@ -54,3 +54,15 @@ hdfs dfs -get lab1-v3/out/part-r-00000 /home
 ```bash
 docker cp hadoop:/home/part-r-00000 .
 ```
+
+# Lab 2
+## Yarn Architecture:
+- Yarn it is responsible for managing resources and assigning them to your tasks.
+
+## What happen if you submit a job?
+1. Yarn tell to NameNode there is a new job to run.
+2. NameNode tell to ResourceManager to run the job.
+3. ResourceManager send to the Applications Manager to allocate resources for the job.
+5. IF Application Manager has resources, it will run the job. then DataNode take the data that is needed to run the job.
+6. Then Node Manager will run if the application take the submitted job.
+7. Then Application Master will run to manage the number of containers that need to run the job.
