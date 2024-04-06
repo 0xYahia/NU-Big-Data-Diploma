@@ -15,6 +15,7 @@ docker cp CIT650-Lab1-Project.jar hadoop:/home
 docker cp task_data.txt hadoop:/home
 ```
 
+
 - hdfs dfs -mkdir <folder name> -> create a folder in HDFS
 - hdfs dfs -put <your fils> /folder-name -> copy the jar file to HDFS
 **Example:**

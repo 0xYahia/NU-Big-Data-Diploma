@@ -90,8 +90,5 @@ public class WordCount {
 //        jobClient.runJob(job);
 
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
-
-
-
     }
 }
