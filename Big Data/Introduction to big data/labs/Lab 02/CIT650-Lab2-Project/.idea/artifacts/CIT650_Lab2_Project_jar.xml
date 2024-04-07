@@ -3,12 +3,12 @@
     <output-path>$PROJECT_DIR$/out/artifacts/CIT650_Lab2_Project_jar</output-path>
     <root id="archive" name="CIT650-Lab2-Project.jar">
       <element id="module-output" name="CIT650-Lab2-Project" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../Lab 01/important jars/hadoop-client-api-3.3.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../Lab 01/important jars/hadoop-client-runtime-3.3.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../Lab 01/important jars/hadoop-hdfs-3.3.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../Lab 01/important jars/hadoop-mapreduce-client-app-3.3.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../Lab 01/important jars/hadoop-mapreduce-client-common-3.3.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../Lab 01/important jars/hadoop-mapreduce-client-core-3.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../important jars/hadoop-hdfs-3.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../important jars/hadoop-client-api-3.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../important jars/hadoop-client-runtime-3.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../important jars/hadoop-mapreduce-client-app-3.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../important jars/hadoop-mapreduce-client-core-3.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../important jars/hadoop-mapreduce-client-common-3.3.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

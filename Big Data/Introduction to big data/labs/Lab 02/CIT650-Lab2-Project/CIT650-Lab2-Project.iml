@@ -8,6 +8,5 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="important jars" level="project" />
-    <orderEntry type="library" name="hadoop-client-api-3.3.1" level="project" />
   </component>
 </module>
