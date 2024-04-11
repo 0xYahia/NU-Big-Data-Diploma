@@ -19,3 +19,4 @@
 - If A is of shape (m x n), then A^T is of shape (n x m).
 
 ![alt text](./images/2.png)
+![alt text](./images/2.png)
