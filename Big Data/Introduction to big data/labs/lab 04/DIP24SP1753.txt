@@ -1,0 +1,86 @@
+steps
+1) Crete a database with name lab4
+  - create database lab4;
+  - Time taken: 0.06 seconds
+
+2) use database with name lab4
+  - use lab4;
+  - Time taken: 0.321 seconds
+
+3) create table
+  - CREATE EXTERNAL TABLE customer_accounts(
+      cust_id INT,
+      creationdate STRING,
+      expirationDate STRING,
+      fname STRING,
+      lname STRING,
+      address STRING,
+      city STRING,
+      state STRING,
+      zipcode STRING
+    )
+    ROW FORMAT DELIMITED
+    FIELDS TERMINATED BY ','
+    STORED AS TEXTFILE
+  - Time taken: 0.458 seconds
+
+4) load data into table
+  - LOAD DATA LOCAL INPATH '/home/accounts' INTO TABLE customer_accounts;
+  - Time taken: 1.084 seconds
+
+5) Create a Partitioned Table by State
+  - CREATE TABLE customer_accounts_by_state(
+      cust_id INT,
+      creationdate STRING,
+      expirationDate STRING,
+      fname STRING,
+      lname STRING,
+      address STRING,
+      city STRING,
+      zipcode STRING
+    )
+    PARTITIONED BY (state STRING)
+    STORED AS TEXTFILE;
+  - Time taken: 0.022 seconds
+
+6) Load data into partitioned table
+  - INSERT OVERWRITE TABLE customer_accounts_by_state PARTITION (state)
+    SELECT cust_id, creationdate, expirationDate, fname, lname, address, city, zipcode, state
+    FROM customer_accounts;
+  - Time taken: 6.773 seconds
+
+7) Query for Customers from NV State:
+  - SELECT fname, lname FROM customer_accounts_by_state WHERE state='NV';
+  - Time taken: 0.955 seconds
+
+8) Create a Table Partitioned by State and City:
+    - CREATE TABLE customer_accounts_by_state_city(
+      cust_id INT,
+      creationdate STRING,
+      expirationDate STRING,
+      fname STRING,
+      lname STRING,
+      address STRING,
+      zipcode STRING
+    )
+    PARTITIONED BY (state STRING, city STRING)
+    STORED AS TEXTFILE;
+  - Time taken: 0.11 seconds
+
+
+9) Load Data into the New Partitioned Table:
+  - INSERT OVERWRITE TABLE customer_accounts_by_state_city PARTITION (state, city)
+    SELECT cust_id, creationdate, expirationDate, fname, lname, address, zipcode, state, city
+    FROM customer_accounts;
+  - Time taken: 19.558 seconds
+
+10) Query for Customers in CA, Oakland:
+  - Regular table
+    - SELECT fname, lname FROM customer_accounts WHERE state='CA' AND city='Oakland';
+    - Time taken: 0.665 seconds
+  - Partitioned table (state)
+    - SELECT fname, lname FROM customer_accounts_by_state WHERE state='CA' AND city='Oakland';
+    - Time taken: 0.262 seconds
+  - Partitioned table (state, city)
+    - SELECT fname, lname FROM customer_accounts_by_state_city WHERE state='CA' AND city='Oakland';
+    - Time taken: 0.221 seconds
