@@ -1,0 +1,9 @@
+compose the docker image: docker compose up -d
+
+
+copy python producer script : docker cp kafka_producer.py ct650fp2-python-1:/.
+
+list kafka topics from inside kafka container: kafka-topics --list --bootstrap-server localhost:9092
+
+kafka console consumer: kafka-console-consumer --bootstrap-server localhost:9092 --topic Acura_stream --from-beginning
+

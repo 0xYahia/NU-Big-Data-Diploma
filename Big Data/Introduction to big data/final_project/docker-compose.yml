@@ -1,0 +1,107 @@
+version: '3.7'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+
+
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_DELETE_TOPIC_ENABLE: true
+
+
+
+  spark-streaming:
+    image: spark:latest
+    depends_on:
+      - kafka
+    ports:
+      - "8080:8080" # Expose Spark's web UI on port 8080 of the host
+      - "7077:7077" # Expose Spark's master URL on port 7077 of the host
+    environment:
+      SPARK_HOME: /opt/spark
+      KAFKA_BROKER_URL: kafka:29092
+      SPARK_NO_DAEMONIZE: true
+      # Add any other environment variables needed for Spark Streaming
+    command: tail -f /dev/null
+
+
+
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: streamdb
+      POSTGRES_USER: streamuser
+      POSTGRES_PASSWORD: streampw
+      POSTGRES_HOST_AUTH_METHOD: trust # This allows connections without a password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - grafana_network
+
+
+  grafana:
+    image: grafana/grafana:latest
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: secret
+      GF_DATABASE_TYPE: postgres
+      GF_DATABASE_HOST: postgres
+      GF_DATABASE_NAME: streamdb
+      GF_DATABASE_USER: streamuser
+      GF_DATABASE_PASSWORD: streampw
+      GF_DATABASE_SSL_MODE: disable
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - grafana_network
+
+
+
+
+  python:
+    image: python:latest # You can choose the version of Python you need
+    volumes:
+      - python_data:/usr/src/app/data # Volume for persistent data storage if needed
+    # working_dir: /usr/src/app # Working directory for the Python application
+    command: bash -c "pip install confluent-kafka && tail -f /dev/null"
+
+
+
+
+networks:
+  default:
+    driver: bridge
+
+  grafana_network:
+    driver: bridge
+
+
+volumes:
+  postgres_data:
+  grafana_data:
+  python_data:
